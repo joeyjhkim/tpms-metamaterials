@@ -1,5 +1,9 @@
 # Novel TPMS Metamaterials — Generative Geometry & Multi-Physics Simulation
 
+<p align="center">
+  <img src="outputs/previews/hero_render.png" alt="Generated TPMS lattice" width="400">
+</p>
+
 A Python framework for generating **genuinely new triply-periodic minimal surfaces (TPMS)** and simulating their mechanical, thermal, and fluid-flow behavior end-to-end.
 
 Every known TPMS — Schwarz P, Gyroid, Diamond, I-WP, Neovius — is a specific point in a 12-dimensional Fourier basis of cubic-symmetric periodic functions. This project samples **random** points in that basis, drives each candidate toward zero mean curvature via curvature flow, then runs nonlinear FEA compression, transient heat conduction, and pressure-driven flow on the resulting structures.
