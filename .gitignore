@@ -1,0 +1,20 @@
+# Heavy generated outputs (regenerate by running the scripts)
+*.stl
+*.mp4
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# OS / tooling
+.DS_Store
+.claude/
+.vscode/
+.idea/
+
+# Local-only docs (references personal paths)
+CLAUDE.md
