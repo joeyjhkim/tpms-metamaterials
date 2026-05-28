@@ -10,24 +10,24 @@ Ten novel TPMS surfaces generated in a single run. Each is unique — random Fou
 
 | | | | | |
 |---|---|---|---|---|
-| ![geo 001](geo_001_20260406_preview.png) | ![geo 002](geo_002_20260406_preview.png) | ![geo 003](geo_003_20260406_preview.png) | ![geo 004](geo_004_20260406_preview.png) | ![geo 005](geo_005_20260406_preview.png) |
-| ![geo 006](geo_006_20260406_preview.png) | ![geo 007](geo_007_20260406_preview.png) | ![geo 008](geo_008_20260406_preview.png) | ![geo 009](geo_009_20260406_preview.png) | ![geo 010](geo_010_20260406_preview.png) |
+| ![geo 001](outputs/previews/geo_001_20260406_preview.png) | ![geo 002](outputs/previews/geo_002_20260406_preview.png) | ![geo 003](outputs/previews/geo_003_20260406_preview.png) | ![geo 004](outputs/previews/geo_004_20260406_preview.png) | ![geo 005](outputs/previews/geo_005_20260406_preview.png) |
+| ![geo 006](outputs/previews/geo_006_20260406_preview.png) | ![geo 007](outputs/previews/geo_007_20260406_preview.png) | ![geo 008](outputs/previews/geo_008_20260406_preview.png) | ![geo 009](outputs/previews/geo_009_20260406_preview.png) | ![geo 010](outputs/previews/geo_010_20260406_preview.png) |
 
 Mean curvature heatmaps (verifying H ≈ 0):
 
 | | | | | |
 |---|---|---|---|---|
-| ![curv 001](geo_001_20260406_curvature.png) | ![curv 002](geo_002_20260406_curvature.png) | ![curv 003](geo_003_20260406_curvature.png) | ![curv 004](geo_004_20260406_curvature.png) | ![curv 005](geo_005_20260406_curvature.png) |
+| ![curv 001](outputs/curvature/geo_001_20260406_curvature.png) | ![curv 002](outputs/curvature/geo_002_20260406_curvature.png) | ![curv 003](outputs/curvature/geo_003_20260406_curvature.png) | ![curv 004](outputs/curvature/geo_004_20260406_curvature.png) | ![curv 005](outputs/curvature/geo_005_20260406_curvature.png) |
 
 Thermal + flow dashboards (steady-state heat conduction and Darcy flow through the void network):
 
 | | | |
 |---|---|---|
-| ![heat 001](geo_001_20260406_heat_summary.png) | ![heat 002](geo_002_20260406_heat_summary.png) | ![heat 003](geo_003_20260406_heat_summary.png) |
+| ![heat 001](outputs/heat/geo_001_20260406_heat_summary.png) | ![heat 002](outputs/heat/geo_002_20260406_heat_summary.png) | ![heat 003](outputs/heat/geo_003_20260406_heat_summary.png) |
 
 Aggregate comparison across all geometries:
 
-![summary](summary_20260406.png)
+![summary](outputs/summary/summary_20260406.png)
 
 ## How it works
 
@@ -57,22 +57,40 @@ Every known TPMS is a known coefficient vector in this basis. Random coefficient
 
 No external FEA library. Everything from the basis evaluation to the stiffness matrix assembly is implemented from scratch.
 
+## Repository layout
+
+```
+.
+├── src/                    # the three pipeline scripts
+│   ├── tpms_compression.py
+│   ├── tpms_thermal_flow.py
+│   └── tpms_flow_heat.py
+└── outputs/
+    ├── previews/           # static surface renders (one per geometry)
+    ├── curvature/          # mean curvature heatmaps
+    ├── heat/               # thermal + flow dashboards
+    ├── data/               # per-geometry FEA CSVs + Fourier coefficients
+    ├── summary/            # aggregate comparison plots
+    ├── animations/         # MP4s — not committed (too large)
+    └── meshes/             # STLs — not committed (too large)
+```
+
 ## Run it
 
 ```bash
 pip install -r requirements.txt
 
 # 1. Generate 10 random TPMS + run compression FEA on each
-python tpms_compression.py
+python src/tpms_compression.py
 
 # 2. Heat + flow simulation on the generated structures
-python tpms_thermal_flow.py
+python src/tpms_thermal_flow.py
 
 # 3. Standalone Schwarz P demo (no dependency on step 1)
-python tpms_flow_heat.py
+python src/tpms_flow_heat.py
 ```
 
-Each script writes its outputs into the working directory (STL, MP4, PNG, CSV) tagged with today's date.
+Each script writes its outputs (STL, MP4, PNG, CSV) into the current working directory tagged with today's date. The committed `outputs/` tree was sorted by file type after the fact for browsing.
 
 ## Outputs per geometry
 
